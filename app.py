@@ -55,6 +55,9 @@ if st.button('Testar todas'):
         except SSLError:
             st.warning(f'{url} possui erro de certificado SSL ❌', icon="🔒")
 
+        except ConnectionError:
+            st.error(f'{url} está indisponível ou incorreta (erro de conexão) 🔌', icon="📡")
+
     sleep(5)
     st.rerun()
 
