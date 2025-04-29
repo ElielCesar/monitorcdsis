@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 from database import criar_tabela, adicionar_url, listar_urls, excluir_url
 from time import sleep
-from requests.exceptions import SSLError
+from requests.exceptions import SSLError, ConnectionError, RequestException
 
 st.set_page_config(page_title='Monitor CDSIS')
 
@@ -58,6 +58,9 @@ if st.button('Testar todas'):
         except ConnectionError:
             st.error(f'{url} está indisponível ou incorreta (erro de conexão) 🔌', icon="📡")
 
+        except RequestException as e:
+            st.error(f'Erro inesperado ao testar {url}: {e}', icon="❗")
+            
     sleep(5)
     st.rerun()
 
